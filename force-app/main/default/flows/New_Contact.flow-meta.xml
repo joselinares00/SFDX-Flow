@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <decisions>
+        <name>Update_or_Create</name>
+        <label>Update or Create?</label>
+        <locationX>635</locationX>
+        <locationY>394</locationY>
+        <defaultConnectorLabel>Create New</defaultConnectorLabel>
+        <rules>
+            <name>Update_Existing</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>updateExisting</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>existingId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Update Existing</label>
+        </rules>
+    </decisions>
     <dynamicChoiceSets>
         <name>accounts</name>
         <dataType>String</dataType>
@@ -32,6 +58,9 @@
         <locationX>503</locationX>
         <locationY>235</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_or_Create</targetReference>
+        </connector>
         <filters>
             <field>FirstName</field>
             <operator>EqualTo</operator>

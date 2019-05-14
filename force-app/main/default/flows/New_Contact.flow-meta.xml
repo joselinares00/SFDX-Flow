@@ -59,6 +59,11 @@
         </outputAssignments>
         <valueField>Id</valueField>
     </dynamicChoiceSets>
+    <formulas>
+        <name>created_or_updated</name>
+        <dataType>String</dataType>
+        <expression>IF({!Create_Contact},&quot;created&quot;,&quot;updated&quot;)</expression>
+    </formulas>
     <interviewLabel>New Contact {!$Flow.CurrentDateTime}</interviewLabel>
     <label>New Contact</label>
     <processMetadataValues>
@@ -118,10 +123,26 @@
         <inputReference>contact</inputReference>
     </recordUpdates>
     <screens>
+        <name>Confirm</name>
+        <label>Confirm</label>
+        <locationX>942</locationX>
+        <locationY>632</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>confirmation_message</name>
+            <fieldText>Thanks! &lt;a href=&quot;/{!contact.Id}&quot;&gt;The contact&lt;/a&gt; was {!created_or_updated}</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Contact_Info</name>
         <label>Contact Info</label>
         <locationX>188</locationX>
-        <locationY>114</locationY>
+        <locationY>115</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -132,22 +153,14 @@
             <name>contactName</name>
             <extensionName>flowruntime:name</extensionName>
             <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>firstName</name>
-                <value>
-                    <elementReference>contact.FirstName</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>lastName</name>
-                <value>
-                    <elementReference>contact.LastName</elementReference>
-                </value>
-            </inputParameters>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>contact.LastName</assignToReference>
                 <name>lastName</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>contact.FirstName</assignToReference>
+                <name>firstName</name>
             </outputParameters>
         </fields>
         <fields>

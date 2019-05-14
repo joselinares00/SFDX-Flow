@@ -3,8 +3,8 @@
     <assignments>
         <name>Set_Contact_Id</name>
         <label>Set Contact Id</label>
-        <locationX>387</locationX>
-        <locationY>521</locationY>
+        <locationX>951</locationX>
+        <locationY>516</locationY>
         <assignmentItems>
             <assignToReference>contact.Id</assignToReference>
             <operator>Assign</operator>
@@ -17,16 +17,16 @@
         </connector>
     </assignments>
     <decisions>
-        <name>Update_or_Create</name>
-        <label>Update or Create?</label>
-        <locationX>635</locationX>
-        <locationY>394</locationY>
+        <name>Update_If_Existing</name>
+        <label>Update If Existing?</label>
+        <locationX>502</locationX>
+        <locationY>95</locationY>
         <defaultConnector>
             <targetReference>Create_Contact</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Create New</defaultConnectorLabel>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
-            <name>Update_Existing</name>
+            <name>Yes</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>updateExisting</leftValueReference>
@@ -35,6 +35,24 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>Find_a_Match</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Update_or_Create</name>
+        <label>Update or Create?</label>
+        <locationX>739</locationX>
+        <locationY>327</locationY>
+        <defaultConnector>
+            <targetReference>Create_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Create New</defaultConnectorLabel>
+        <rules>
+            <name>Update_Existing</name>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>existingId</leftValueReference>
                 <operator>IsNull</operator>
@@ -82,15 +100,18 @@
     <recordCreates>
         <name>Create_Contact</name>
         <label>Create Contact</label>
-        <locationX>930</locationX>
-        <locationY>435</locationY>
+        <locationX>355</locationX>
+        <locationY>365</locationY>
+        <connector>
+            <targetReference>Confirm</targetReference>
+        </connector>
         <inputReference>contact</inputReference>
     </recordCreates>
     <recordLookups>
         <name>Find_a_Match</name>
         <label>Find a Match</label>
-        <locationX>503</locationX>
-        <locationY>235</locationY>
+        <locationX>747</locationX>
+        <locationY>95</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_or_Create</targetReference>
@@ -118,15 +139,18 @@
     <recordUpdates>
         <name>Update_Contact</name>
         <label>Update Contact</label>
-        <locationX>512</locationX>
-        <locationY>652</locationY>
+        <locationX>730</locationX>
+        <locationY>517</locationY>
+        <connector>
+            <targetReference>Confirm</targetReference>
+        </connector>
         <inputReference>contact</inputReference>
     </recordUpdates>
     <screens>
         <name>Confirm</name>
         <label>Confirm</label>
-        <locationX>942</locationX>
-        <locationY>632</locationY>
+        <locationX>465</locationX>
+        <locationY>517</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -141,13 +165,13 @@
     <screens>
         <name>Contact_Info</name>
         <label>Contact Info</label>
-        <locationX>188</locationX>
-        <locationY>115</locationY>
+        <locationX>224</locationX>
+        <locationY>94</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Find_a_Match</targetReference>
+            <targetReference>Update_If_Existing</targetReference>
         </connector>
         <fields>
             <name>contactName</name>

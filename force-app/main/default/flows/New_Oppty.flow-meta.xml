@@ -12,6 +12,9 @@
                 <stringValue>Prospecting</stringValue>
             </value>
         </assignmentItems>
+        <connector>
+            <targetReference>Create_Oppty</targetReference>
+        </connector>
     </assignments>
     <dynamicChoiceSets>
         <name>accounts</name>
@@ -39,6 +42,31 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Oppty</name>
+        <label>Create Oppty</label>
+        <locationX>137</locationX>
+        <locationY>300</locationY>
+        <inputAssignments>
+            <field>CloseDate</field>
+            <value>
+                <elementReference>Close_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>opptyName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <elementReference>opptyStage</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordCreates>
     <screens>
         <name>Oppty_Screen</name>
         <label>Oppty Screen</label>
@@ -77,6 +105,10 @@
     </screens>
     <startElementReference>Oppty_Screen</startElementReference>
     <status>Draft</status>
+    <textTemplates>
+        <name>opptyName</name>
+        <text>{!accountName}{!Oppty_Identifier}</text>
+    </textTemplates>
     <variables>
         <name>accountName</name>
         <dataType>String</dataType>

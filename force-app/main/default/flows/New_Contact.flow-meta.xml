@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Post_to_Contact_s_Feed</name>
+        <label>Post to Contact&#39;s Feed</label>
+        <locationX>220</locationX>
+        <locationY>559</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <connector>
+            <targetReference>Confirm</targetReference>
+        </connector>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>chatterMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>contact.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
     <assignments>
         <name>Set_Contact_Id</name>
         <label>Set Contact Id</label>
@@ -103,7 +126,7 @@
         <locationX>355</locationX>
         <locationY>365</locationY>
         <connector>
-            <targetReference>Confirm</targetReference>
+            <targetReference>Post_to_Contact_s_Feed</targetReference>
         </connector>
         <inputReference>contact</inputReference>
     </recordCreates>
@@ -142,15 +165,15 @@
         <locationX>730</locationX>
         <locationY>517</locationY>
         <connector>
-            <targetReference>Confirm</targetReference>
+            <targetReference>Post_to_Contact_s_Feed</targetReference>
         </connector>
         <inputReference>contact</inputReference>
     </recordUpdates>
     <screens>
         <name>Confirm</name>
         <label>Confirm</label>
-        <locationX>465</locationX>
-        <locationY>517</locationY>
+        <locationX>481</locationX>
+        <locationY>675</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -222,6 +245,10 @@
     </screens>
     <startElementReference>Contact_Info</startElementReference>
     <status>Draft</status>
+    <textTemplates>
+        <name>chatterMessage</name>
+        <text>The contact was {!created_or_updated}.</text>
+    </textTemplates>
     <variables>
         <name>contact</name>
         <dataType>SObject</dataType>

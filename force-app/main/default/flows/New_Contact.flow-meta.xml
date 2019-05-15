@@ -244,7 +244,7 @@
         <showHeader>true</showHeader>
     </screens>
     <startElementReference>Contact_Info</startElementReference>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>chatterMessage</name>
         <text>The contact was {!created_or_updated}.</text>
